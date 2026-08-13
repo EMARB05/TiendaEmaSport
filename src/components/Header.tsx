@@ -25,7 +25,6 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
   const { totalItems } = useCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // 1. Estado para detectar si ya estamos en el navegador
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -40,7 +39,7 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
   ];
 
   return (
-    <header className="sticky top-0 z-40 bg-white/95 dark:bg-zinc-950/95 backdrop-blur-md border-b border-zinc-200 dark:border-zinc-800">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-zinc-200">
 
       {/* Top Banner Ofertas */}
       <div className="bg-zinc-900 text-white text-[10px] sm:text-xs py-1.5 text-center font-bold uppercase tracking-wider px-2 whitespace-nowrap overflow-hidden text-ellipsis">
@@ -53,19 +52,20 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
           {/* Botón Menú Hamburguesa (Solo Móvil) */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 text-zinc-700 dark:text-zinc-200"
+            className="md:hidden p-2 text-zinc-700"
             aria-label="Abrir menú"
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-black text-xl tracking-tight text-zinc-900 dark:text-white">👕EMA<span className="text-emerald-600">SPORT</span>
+          <Link href="/" className="flex items-center gap-2 font-black text-xl tracking-tight text-zinc-900">
+            👕EMA<span className="text-emerald-600">SPORT</span>
           </Link>
 
-          {/* Menú Desktop (Oculto en móvil) */}
+          {/* Menú Desktop */}
           <nav className="hidden md:flex items-center gap-6 text-sm font-semibold">
-            <Link href="/" className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition">
+            <Link href="/" className="text-zinc-600 hover:text-zinc-900 transition">
               Inicio
             </Link>
 
@@ -75,17 +75,17 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
               onMouseEnter={() => setIsDropdownOpen(true)}
               onMouseLeave={() => setIsDropdownOpen(false)}
             >
-              <button className="flex items-center gap-1 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white py-2 transition">
+              <button className="flex items-center gap-1 text-zinc-600 hover:text-zinc-900 py-2 transition">
                 Camisetas por Liga <ChevronDown className="h-4 w-4" />
               </button>
 
               {isDropdownOpen && (
-                <div className="absolute top-full left-0 w-48 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-zinc-200 dark:border-zinc-800 py-2 z-50">
+                <div className="absolute top-full left-0 w-48 bg-white rounded-xl shadow-xl border border-zinc-200 py-2 z-50">
                   {leagues.map((league) => (
                     <Link
                       key={league.name}
                       href={`/catalogo?filtro=${encodeURIComponent(league.filter)}`}
-                      className="block px-4 py-2 text-xs text-zinc-700 dark:text-zinc-300 hover:bg-emerald-50 dark:hover:bg-zinc-800 hover:text-emerald-600 transition"
+                      className="block px-4 py-2 text-xs text-zinc-700 hover:bg-emerald-50 hover:text-emerald-600 transition"
                       onClick={() => setIsDropdownOpen(false)}
                     >
                       {league.name}
@@ -95,20 +95,20 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
               )}
             </div>
 
-            <Link href="/catalogo?filtro=RETRO" className="text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition">
+            <Link href="/catalogo?filtro=RETRO" className="text-zinc-600 hover:text-zinc-900 transition">
               Colección Retro ⭐
             </Link>
           </nav>
 
-          {/* Acciones (Buscador, User, Carrito) */}
+          {/* Acciones */}
           <div className="flex items-center gap-2 sm:gap-4">
-            <Link href="/catalogo" className="p-2 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400">
+            <Link href="/catalogo" className="p-2 text-zinc-600 hover:text-zinc-900">
               <Search className="h-5 w-5" />
             </Link>
 
             <button
               onClick={handleGoogleLogin}
-              className="hidden sm:flex items-center gap-2 border border-zinc-200 dark:border-zinc-800 rounded-full px-3 py-1.5 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition cursor-pointer"
+              className="hidden sm:flex items-center gap-2 border border-zinc-200 rounded-full px-3 py-1.5 text-xs font-semibold text-zinc-700 hover:bg-zinc-100 transition cursor-pointer"
             >
               <User className="h-4 w-4" />
               Iniciar sesión
@@ -117,12 +117,11 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
             {/* Botón Carrito */}
             <button
               onClick={onOpenCart}
-              className="relative p-2 text-zinc-800 dark:text-zinc-100 hover:opacity-80 transition"
+              className="relative p-2 text-zinc-800 hover:opacity-80 transition cursor-pointer"
               aria-label="Carrito"
             >
               <ShoppingBag className="h-5 w-5" />
 
-              {/* SOLO mostramos la insignia si mounted es true Y hay items */}
               {mounted && totalItems > 0 && (
                 <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-[10px] font-black rounded-full h-4 w-4 flex items-center justify-center">
                   {totalItems}
@@ -135,16 +134,16 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
 
       {/* Menú Desplegable Móvil */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 pt-2 pb-6 space-y-3">
+        <div className="md:hidden border-t border-zinc-200 bg-white px-4 pt-2 pb-6 space-y-3">
           <Link
             href="/"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 text-sm font-bold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-900"
+            className="block py-2 text-sm font-bold text-zinc-800 border-b border-zinc-100"
           >
             Inicio
           </Link>
 
-          <div className="py-2 border-b border-zinc-100 dark:border-zinc-900">
+          <div className="py-2 border-b border-zinc-100">
             <p className="text-xs font-bold text-emerald-600 uppercase tracking-wider mb-2">Por Liga</p>
             <div className="pl-2 space-y-2">
               {leagues.map((league) => (
@@ -152,7 +151,7 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
                   key={league.name}
                   href={`/catalogo?filtro=${encodeURIComponent(league.filter)}`}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="block text-sm text-zinc-600 dark:text-zinc-400"
+                  className="block text-sm text-zinc-600"
                 >
                   {league.name}
                 </Link>
@@ -163,7 +162,7 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
           <Link
             href="/catalogo?filtro=RETRO"
             onClick={() => setIsMobileMenuOpen(false)}
-            className="block py-2 text-sm font-bold text-zinc-800 dark:text-zinc-200 border-b border-zinc-100 dark:border-zinc-900"
+            className="block py-2 text-sm font-bold text-zinc-800 border-b border-zinc-100"
           >
             Colección Retro ⭐
           </Link>
@@ -173,7 +172,7 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
               setIsMobileMenuOpen(false);
               handleGoogleLogin();
             }}
-            className="flex items-center justify-center gap-2 w-full mt-4 py-2.5 bg-zinc-100 dark:bg-zinc-900 rounded-xl text-xs font-bold cursor-pointer"
+            className="flex items-center justify-center gap-2 w-full mt-4 py-2.5 bg-zinc-100 rounded-xl text-xs font-bold text-zinc-800 cursor-pointer"
           >
             <User className="h-4 w-4" />
             Iniciar sesión

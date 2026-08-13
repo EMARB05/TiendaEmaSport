@@ -18,7 +18,7 @@ export default async function HomePage() {
 
       {/* Título de la sección */}
       <div className="mt-12 mb-4">
-        <h2 className="text-2xl font-black tracking-tight text-zinc-900 dark:text-zinc-100 uppercase">
+        <h2 className="text-2xl font-black tracking-tight text-zinc-90 uppercase">
           Nuestra Colección
         </h2>
         <p className="text-sm text-zinc-500">

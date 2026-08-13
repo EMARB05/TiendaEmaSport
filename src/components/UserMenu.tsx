@@ -43,14 +43,14 @@ export function UserMenu() {
   };
 
   if (loading) {
-    return <div className="h-8 w-8 rounded-full bg-zinc-200 dark:bg-zinc-800 animate-pulse" />;
+    return <div className="h-8 w-8 rounded-full bg-zinc-200 animate-pulse" />;
   }
 
   if (!user) {
     return (
       <button
         onClick={handleLogin}
-        className="flex items-center gap-2 rounded-lg border border-zinc-300 dark:border-zinc-700 px-3 py-1.5 text-xs font-semibold text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition"
+        className="flex items-center gap-2 rounded-lg border border-zinc-300  px-3 py-1.5 text-xs font-semibold text-zinc-700  hover:bg-zinc-100  transition"
       >
         <UserIcon className="h-4 w-4" />
         <span>Iniciar sesión</span>
@@ -77,7 +77,7 @@ export function UserMenu() {
             {name?.charAt(0).toUpperCase()}
           </div>
         )}
-        <span className="hidden sm:inline text-xs font-medium text-zinc-700 dark:text-zinc-300 line-clamp-1 max-w-[100px]">
+        <span className="hidden sm:inline text-xs font-medium text-zinc-700  line-clamp-1 max-w-25">
           {name}
         </span>
       </div>

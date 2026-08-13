@@ -12,7 +12,7 @@ interface Product {
   images: string[];
   team: string;
   isRetro: boolean;
-  league?: string; // Ej: "LaLiga", "Premier League", "Serie A", "Internacionales"
+  league?: string;
 }
 
 const LEAGUES = [
@@ -45,22 +45,21 @@ export function CatalogSection({
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         product.team.toLowerCase().includes(searchTerm.toLowerCase());
 
-     // Filtro de Liga / Categoría
-let matchesCategory = true;
-if (selectedLeague === "RETRO") {
-  matchesCategory = product.isRetro;
-} else if (selectedLeague !== "ALL") {
-  const currentLeague = (product.league || "").toLowerCase();
-  const searchLeague = selectedLeague.toLowerCase();
+      // Filtro de Liga / Categoría
+      let matchesCategory = true;
+      if (selectedLeague === "RETRO") {
+        matchesCategory = product.isRetro;
+      } else if (selectedLeague !== "ALL") {
+        const currentLeague = (product.league || "").toLowerCase();
+        const searchLeague = selectedLeague.toLowerCase();
 
-  matchesCategory =
-    currentLeague === searchLeague ||
-    // Soporte para variaciones (por si acaso conviven Selecciones e Internacionales)
-    (searchLeague === "selecciones" && currentLeague === "internacionales") ||
-    (searchLeague === "internacionales" && currentLeague === "selecciones") ||
-    product.name.toLowerCase().includes(searchLeague) ||
-    product.team.toLowerCase().includes(searchLeague);
-}
+        matchesCategory =
+          currentLeague === searchLeague ||
+          (searchLeague === "selecciones" && currentLeague === "internacionales") ||
+          (searchLeague === "internacionales" && currentLeague === "selecciones") ||
+          product.name.toLowerCase().includes(searchLeague) ||
+          product.team.toLowerCase().includes(searchLeague);
+      }
 
       return matchesSearch && matchesCategory;
     });
@@ -80,7 +79,7 @@ if (selectedLeague === "RETRO") {
               placeholder="Buscar por equipo, jugador o camiseta..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-4 py-2.5 text-sm bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 transition shadow-sm"
+              className="w-full pl-9 pr-4 py-2.5 text-sm bg-white border border-zinc-200 text-zinc-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 transition shadow-sm"
             />
           </div>
 
@@ -97,10 +96,10 @@ if (selectedLeague === "RETRO") {
               <button
                 key={league.id}
                 onClick={() => setSelectedLeague(league.id)}
-                className={`whitespace-nowrap px-4 py-2 text-xs font-bold rounded-xl transition-all ${
+                className={`whitespace-nowrap px-4 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${
                   isActive
                     ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
-                    : "bg-zinc-100 dark:bg-zinc-800/80 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-200 dark:hover:bg-zinc-700"
+                    : "bg-zinc-100 text-zinc-600 hover:bg-zinc-200"
                 }`}
               >
                 {league.name}
@@ -113,23 +112,23 @@ if (selectedLeague === "RETRO") {
 
       {/* Grid de Productos */}
       {filteredProducts.length === 0 ? (
-        <div className="text-center py-16 bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-800">
+        <div className="text-center py-16 bg-zinc-50 rounded-2xl border border-dashed border-zinc-300">
           <p className="text-zinc-500 text-sm font-medium">
             No se encontraron camisetas para el filtro seleccionado.
           </p>
           <button
             onClick={() => { setSelectedLeague("ALL"); setSearchTerm(""); }}
-            className="mt-4 text-xs font-bold text-emerald-600 hover:underline"
+            className="mt-4 text-xs font-bold text-emerald-600 hover:underline cursor-pointer"
           >
             Ver todas las camisetas
           </button>
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
-  {filteredProducts.map((product) => (
-    <ProductCard key={product.id || product.slug} product={product} />
-  ))}
-</div>
+          {filteredProducts.map((product) => (
+            <ProductCard key={product.id || product.slug} product={product} />
+          ))}
+        </div>
       )}
     </section>
   );

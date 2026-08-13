@@ -24,16 +24,16 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
       />
 
       <div className="fixed inset-y-0 right-0 flex max-w-full pl-10">
-        <div className="w-screen max-w-md bg-white dark:bg-zinc-900 shadow-xl flex flex-col">
+        <div className="w-screen max-w-md bg-white shadow-xl flex flex-col">
           
           {/* Header del Carrito */}
-          <div className="flex items-center justify-between px-4 py-6 border-b border-zinc-200 dark:border-zinc-800">
-            <h2 className="text-lg font-bold text-zinc-900 dark:text-zinc-100">
+          <div className="flex items-center justify-between px-4 py-6 border-b border-zinc-200 ">
+            <h2 className="text-lg font-bold text-zinc-900">
               Tu Carrito ({cart.length})
             </h2>
             <button
               onClick={onClose}
-              className="p-2 text-zinc-500 hover:text-zinc-800 dark:hover:text-zinc-200"
+              className="p-2 text-zinc-500 hover:text-zinc-800"
             >
               <X className="h-5 w-5" />
             </button>
@@ -49,7 +49,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               cart.map((item) => (
                 <div
                   key={`${item.id}-${item.size}`}
-                  className="flex gap-4 p-3 border rounded-lg border-zinc-200 dark:border-zinc-800"
+                  className="flex gap-4 p-3 border rounded-lg border-zinc-200"
                 >
                   <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md bg-zinc-100">
                     <Image
@@ -62,7 +62,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
                   <div className="flex flex-1 flex-col justify-between">
                     <div>
-                      <div className="flex justify-between text-sm font-medium text-zinc-900 dark:text-zinc-100">
+                      <div className="flex justify-between text-sm font-medium text-zinc-900">
                         <h3 className="line-clamp-1">{item.name}</h3>
                         <p className="ml-2">${(item.price * item.quantity).toFixed(2)}</p>
                       </div>
@@ -70,17 +70,17 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                     </div>
 
                     <div className="flex items-center justify-between text-sm">
-                      <div className="flex items-center border border-zinc-300 dark:border-zinc-700 rounded">
+                      <div className="flex items-center border border-zinc-300">
                         <button
                           onClick={() => updateQuantity(item.id, item.size, item.quantity - 1)}
-                          className="p-1 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400"
+                          className="p-1 text-zinc-600 hover:text-zinc-900"
                         >
                           <Minus className="h-3 w-3" />
                         </button>
                         <span className="px-2 text-xs font-semibold">{item.quantity}</span>
                         <button
                           onClick={() => updateQuantity(item.id, item.size, item.quantity + 1)}
-                          className="p-1 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400"
+                          className="p-1 text-zinc-600 hover:text-zinc-900"
                         >
                           <Plus className="h-3 w-3" />
                         </button>
@@ -101,8 +101,8 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
 
           {/* Footer con Total y Checkout */}
           {cart.length > 0 && (
-            <div className="border-t border-zinc-200 dark:border-zinc-800 p-4 space-y-4">
-              <div className="flex justify-between text-base font-bold text-zinc-900 dark:text-zinc-100">
+            <div className="border-t border-zinc-200 p-4 space-y-4">
+              <div className="flex justify-between text-base font-bold text-zinc-900 ">
                 <p>Total:</p>
                 <p>${totalPrice.toFixed(2)}</p>
               </div>

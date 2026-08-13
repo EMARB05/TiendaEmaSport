@@ -54,7 +54,7 @@ export function AddToCartSection({ product }: AddToCartProps) {
     <div className="mt-6 flex flex-col gap-6">
       {/* Tallas */}
       <div>
-        <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">
+        <h3 className="text-sm font-medium text-zinc-900 ">
           Selecciona tu Talla:
         </h3>
         <div className="mt-2 flex gap-2">
@@ -68,7 +68,7 @@ export function AddToCartSection({ product }: AddToCartProps) {
               className={`rounded-md border px-4 py-2 text-sm font-medium transition ${
                 selectedSize === size
                   ? "border-emerald-600 bg-emerald-600 text-white"
-                  : "border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:border-zinc-400"
+                  : "border-zinc-300  text-zinc-700 hover:border-zinc-400"
               }`}
             >
               {size}
@@ -84,19 +84,19 @@ export function AddToCartSection({ product }: AddToCartProps) {
 
       {/* Cantidad */}
       <div>
-        <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-100">Cantidad:</h3>
+        <h3 className="text-sm font-medium text-zinc-900">Cantidad:</h3>
         <div className="mt-2 flex items-center gap-3">
-          <div className="flex items-center rounded-lg border border-zinc-300 dark:border-zinc-700">
+          <div className="flex items-center rounded-lg border border-zinc-300 ">
             <button
               onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
-              className="p-2 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+              className="p-2 text-zinc-600 hover:text-zinc-900 "
             >
               <Minus className="h-4 w-4" />
             </button>
             <span className="w-8 text-center text-sm font-semibold">{quantity}</span>
             <button
               onClick={() => setQuantity((prev) => prev + 1)}
-              className="p-2 text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
+              className="p-2 text-zinc-600 hover:text-zinc-900  "
             >
               <Plus className="h-4 w-4" />
             </button>
