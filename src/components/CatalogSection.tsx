@@ -20,7 +20,7 @@ const LEAGUES = [
   { id: "LaLiga", name: "LaLiga" },
   { id: "Premier League", name: "Premier League" },
   { id: "Serie A", name: "Serie A" },
-  { id: "Internacionales", name: "Selecciones" },
+  { id: "Selecciones", name: "Selecciones" },
   { id: "RETRO", name: "Colección Retro ⭐" },
 ];
 
@@ -45,15 +45,22 @@ export function CatalogSection({
         product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         product.team.toLowerCase().includes(searchTerm.toLowerCase());
 
-      // Filtro de Liga / Categoría
-      let matchesCategory = true;
-      if (selectedLeague === "RETRO") {
-        matchesCategory = product.isRetro;
-      } else if (selectedLeague !== "ALL") {
-        matchesCategory = product.league?.toLowerCase() === selectedLeague.toLowerCase() ||
-                          product.name.toLowerCase().includes(selectedLeague.toLowerCase()) ||
-                          product.team.toLowerCase().includes(selectedLeague.toLowerCase());
-      }
+     // Filtro de Liga / Categoría
+let matchesCategory = true;
+if (selectedLeague === "RETRO") {
+  matchesCategory = product.isRetro;
+} else if (selectedLeague !== "ALL") {
+  const currentLeague = (product.league || "").toLowerCase();
+  const searchLeague = selectedLeague.toLowerCase();
+
+  matchesCategory =
+    currentLeague === searchLeague ||
+    // Soporte para variaciones (por si acaso conviven Selecciones e Internacionales)
+    (searchLeague === "selecciones" && currentLeague === "internacionales") ||
+    (searchLeague === "internacionales" && currentLeague === "selecciones") ||
+    product.name.toLowerCase().includes(searchLeague) ||
+    product.team.toLowerCase().includes(searchLeague);
+}
 
       return matchesSearch && matchesCategory;
     });

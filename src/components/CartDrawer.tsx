@@ -2,6 +2,7 @@
 
 import { useCart } from "../context/CartContext";
 import Image from "next/image";
+import Link from "next/link";
 import { X, Trash2, Plus, Minus } from "lucide-react";
 
 interface CartDrawerProps {
@@ -105,12 +106,13 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                 <p>Total:</p>
                 <p>${totalPrice.toFixed(2)}</p>
               </div>
-              <button
-                onClick={() => alert("¡Proceso de compra en construcción!")}
-                className="w-full rounded-lg bg-emerald-600 py-3 text-center text-sm font-semibold text-white hover:bg-emerald-700 transition"
+              <Link
+                href="/checkout"
+                onClick={onClose}
+                className="block w-full rounded-lg bg-emerald-600 py-3 text-center text-sm font-semibold text-white hover:bg-emerald-700 transition"
               >
                 Proceder al Pago
-              </button>
+              </Link>
             </div>
           )}
 

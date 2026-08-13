@@ -1,7 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect
-  ,ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 export interface CartItem {
   id: string;
@@ -18,11 +17,14 @@ interface CartContextType {
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string, size: string) => void;
   updateQuantity: (id: string, size: string, quantity: number) => void;
+  clearCart: () => void;
   totalItems: number;
   totalPrice: number;
+  totalAmount: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
+
 export function CartProvider({ children }: { children: ReactNode }) {
   // Inicializamos el estado leyendo desde localStorage si existe
   const [cart, setCart] = useState<CartItem[]>(() => {
@@ -80,12 +82,26 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  const clearCart = () => {
+    setCart([]);
+  };
+
   const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  const totalAmount = totalPrice;
 
   return (
     <CartContext.Provider
-      value={{ cart, addToCart, removeFromCart, updateQuantity, totalItems, totalPrice }}
+      value={{
+        cart,
+        addToCart,
+        removeFromCart,
+        updateQuantity,
+        clearCart,
+        totalItems,
+        totalPrice,
+        totalAmount,
+      }}
     >
       {children}
     </CartContext.Provider>
