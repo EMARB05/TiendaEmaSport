@@ -21,7 +21,7 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
   return (
     <main className="min-h-screen max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:px-8">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800">
+        <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-zinc-100">
           <Image
             src={product.images[0]}
             alt={product.name}
@@ -33,17 +33,17 @@ export default async function ProductDetailPage({ params }: ProductPageProps) {
         </div>
 
         <div className="flex flex-col justify-center">
-          <span className="text-sm text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">
+          <span className="text-sm text-emerald-600 font-semibold uppercase tracking-wider">
             {product.league} - {product.team}
           </span>
-          <h1 className="mt-2 text-3xl font-extrabold text-zinc-900 dark:text-zinc-100 sm:text-4xl">
+          <h1 className="mt-2 text-3xl font-extrabold text-zinc-900 sm:text-4xl">
             {product.name}
           </h1>
-          <p className="mt-4 text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+          <p className="mt-4 text-2xl font-bold text-zinc-900">
             ${product.price.toFixed(2)}
           </p>
 
-          <p className="mt-4 text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 text-zinc-600">
             {product.description}
           </p>
 
