@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+model Product {
+  id          String   @id @default(uuid())
+  name        String   // Ej: "Camiseta Argentina Local"
+  slug        String   @unique // Ej: "camiseta-argentina-local-2022"
+  description String
+  price       Float
+  images      String[] // Lista de URLs de imágenes
+  league      String   // Ej: "LaLiga", "Premier League", "Selecciones", "Retro"
+  team        String   // Ej: "Real Madrid", "Argentina"
+  season      String   // Ej: "2024/25", "1998"
+  isRetro     Boolean  @default(false)
+  isCustom    Boolean  @default(true) // Si permite estampado de nombre/dorsal
+  sizes       String[] // Ej: ["S", "M", "L", "XL"]
+  createdAt   DateTime @default(now())
+}
