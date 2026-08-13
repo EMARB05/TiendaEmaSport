@@ -1,6 +1,12 @@
 import { prisma } from "../src/lib/prisma";
 import { HeroBanner } from "../src/components/HeroBanner";
 import { CatalogSection } from "../src/components/CatalogSection";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "EmaSport | Tienda Oficial de Camisetas de Fútbol",
+  description: "Consigue las mejores camisetas oficiales de fútbol y colecciones retro con envío gratis.",
+};
 
 export default async function HomePage() {
   const products = await prisma.product.findMany();
