@@ -4,6 +4,22 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { ShoppingBag, Search, User, Menu, X, ChevronDown } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { createClient } from "@supabase/supabase-js";
+
+// Inicializamos el cliente de Supabase con las variables públicas
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+const handleGoogleLogin = async () => {
+  await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${window.location.origin}`,
+    },
+  });
+};
 
 export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
   const { totalItems } = useCart();
@@ -44,8 +60,7 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
           </button>
 
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 font-black text-xl tracking-tight text-zinc-900 dark:text-white">
-            <span className="text-emerald-600">👕</span> EMASPORT
+          <Link href="/" className="flex items-center gap-2 font-black text-xl tracking-tight text-zinc-900 dark:text-white">👕EMA<span className="text-emerald-600">SPORT</span>
           </Link>
 
           {/* Menú Desktop (Oculto en móvil) */}
@@ -91,13 +106,13 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
               <Search className="h-5 w-5" />
             </Link>
 
-            <Link
-              href="/login"
-              className="hidden sm:flex items-center gap-2 border border-zinc-200 dark:border-zinc-800 rounded-full px-3 py-1.5 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition"
+            <button
+              onClick={handleGoogleLogin}
+              className="hidden sm:flex items-center gap-2 border border-zinc-200 dark:border-zinc-800 rounded-full px-3 py-1.5 text-xs font-semibold hover:bg-zinc-100 dark:hover:bg-zinc-900 transition cursor-pointer"
             >
               <User className="h-4 w-4" />
               Iniciar sesión
-            </Link>
+            </button>
 
             {/* Botón Carrito */}
             <button
@@ -153,14 +168,16 @@ export function Header({ onOpenCart }: { onOpenCart?: () => void }) {
             Colección Retro ⭐
           </Link>
 
-          <Link
-            href="/login"
-            onClick={() => setIsMobileMenuOpen(false)}
-            className="flex items-center justify-center gap-2 w-full mt-4 py-2.5 bg-zinc-100 dark:bg-zinc-900 rounded-xl text-xs font-bold"
+          <button
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              handleGoogleLogin();
+            }}
+            className="flex items-center justify-center gap-2 w-full mt-4 py-2.5 bg-zinc-100 dark:bg-zinc-900 rounded-xl text-xs font-bold cursor-pointer"
           >
             <User className="h-4 w-4" />
             Iniciar sesión
-          </Link>
+          </button>
         </div>
       )}
     </header>
